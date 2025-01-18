@@ -1,1 +1,77 @@
-print("hello world")
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UMBX - Welcome to Our Site</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #333;
+        }
+        nav a {
+            color: white;
+            padding: 1rem;
+            text-decoration: none;
+        }
+        nav a:hover {
+            background-color: #575757;
+        }
+        main {
+            padding: 2rem;
+            text-align: center;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to UMBX</h1>
+        <p>Your destination for great content!</p>
+    </header>
+    <nav>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+    </nav>
+    <main>
+        <section id="about">
+            <h2>About Us</h2>
+            <p>UMBX is all about delivering the best user experience and amazing services. Stay tuned for more updates!</p>
+        </section>
+        <section id="services">
+            <h2>Our Services</h2>
+            <p>We offer web design, development, and hosting services to help bring your vision to life.</p>
+        </section>
+        <section id="contact">
+            <h2>Contact Us</h2>
+            <p>Email us at <a href="mailto:info@umbx.com">info@umbx.com</a> or call us at +123 456 7890.</p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 UMBX. All rights reserved.</p>
+    </footer>
+</body>
+</html>
