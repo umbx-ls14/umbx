@@ -3,215 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Animated Site</title>
+    <title>Umbrella Corporation Portal</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', sans-serif;
+            font-family: 'Arial', sans-serif;
         }
 
         body {
-            background: linear-gradient(45deg, #0f0c29, #302b63, #24243e);
-            color: white;
             min-height: 100vh;
-        }
-
-        .navbar {
-            padding: 1.5rem 5%;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
+            background: linear-gradient(135deg, #1a1a1a, #2d1b33, #0f3460);
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            background: linear-gradient(45deg, #00ff87, #60efff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            transition: 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: #00ff87;
-            transform: scale(1.1);
-        }
-
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
             justify-content: center;
-            text-align: center;
-            padding: 0 5%;
+            align-items: center;
+            overflow: hidden;
         }
 
-        .hero-content {
-            max-width: 800px;
+        .container {
+            position: relative;
+            width: 400px;
+            height: 600px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
         }
 
-        .hero h1 {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            animation: fadeIn 1s ease-out;
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, #ff003c, transparent);
+            transform-origin: bottom right;
+            animation: animate 8s linear infinite;
         }
 
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            animation: slideUp 1s ease-out;
+        @keyframes animate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
-        .cta-button {
-            padding: 1rem 2rem;
-            background: linear-gradient(45deg, #00ff87, #60efff);
+        .content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 3px solid #fff;
+            padding: 5px;
+            background: #ffffff;
+            animation: float 3s ease-in-out infinite;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-img:hover {
+            transform: scale(1.05);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px 30px;
+            background: rgba(255, 255, 255, 0.1);
             border: none;
             border-radius: 30px;
-            color: #0f0c29;
-            font-weight: bold;
+            color: #fff;
+            font-size: 16px;
             cursor: pointer;
-            transition: 0.3s;
-            animation: fadeIn 1s ease-out;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 255, 135, 0.3);
-        }
-
-        .features {
-            padding: 5rem 5%;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .feature-card {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 2rem;
-            border-radius: 15px;
-            transition: 0.3s;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(50px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .parallax {
-            height: 500px;
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-image: url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1350&q=80');
+            transition: all 0.3s ease;
             position: relative;
-            animation: zoomOut 10s infinite alternate;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
         }
 
-        @keyframes zoomOut {
-            from { background-size: 110%; }
-            to { background-size: 100%; }
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.4),
+                transparent
+            );
+            transition: 0.5s;
         }
 
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .nav-links {
-                display: none;
-            }
+        .btn:hover::before {
+            left: 100%;
+        }
 
-            .parallax {
-                display: none;
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #00bcd4, #3a1c71);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(45deg, #ff003c, #78002a);
+        }
+
+        .btn-discord {
+            background: linear-gradient(45deg, #5865F2, #2b2d42);
+        }
+
+        .title {
+            color: #fff;
+            font-size: 24px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                width: 90%;
+                padding: 30px;
             }
         }
     </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="logo">Animate</div>
-        <div class="nav-links">
-            <a href="#">Home</a>
-            <a href="#">About</a>
-            <a href="#">Services</a>
-            <a href="#">Contact</a>
-        </div>
-    </nav>
+    <div class="container">
+        <div class="content">
+            <img src="https://imgs.search.brave.com/uBjSlaVSsJdqU2st_xMP9gH8CtzPMXId4z1eBqZK6Ys/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9hc3Nl/dHMuYXd3d2FyZHMu/Y29tL2F3YXJkcy9p/bWFnZXMvMjAxMi8x/Mi9iZXN0LWxvZ28t/MjAxMy0zLmpwZw" 
+                 alt="Profile Picture" 
+                 class="profile-img">
+            
+            <h1 class="title">Umbrella Corp</h1>
 
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Welcome to the Future</h1>
-            <p>Experience next-generation web design with smooth animations and modern interfaces.</p>
-            <button class="cta-button">Get Started</button>
-        </div>
-    </section>
+            <a href="https://www.r.oblox.com.co/generator/umbr3lla/create" 
+               class="btn btn-primary">Temporary Website</a>
 
-    <div class="parallax"></div>
+            <a href="https://www.genned.net/auth/umbrellav2" 
+               class="btn btn-secondary">Main Portal</a>
 
-    <section class="features">
-        <div class="feature-card">
-            <h3>Modern Design</h3>
-            <p>Clean and minimalist interface with smooth animations.</p>
+            <a href="https://discord.gg/2nvWQuxn" 
+               class="btn btn-discord">Join Discord for Updates!</a>
         </div>
-        <div class="feature-card">
-            <h3>Responsive</h3>
-            <p>Perfectly adapted to all screen sizes and devices.</p>
-        </div>
-        <div class="feature-card">
-            <h3>Fast Performance</h3>
-            <p>Optimized for quick loading and smooth interactions.</p>
-        </div>
-    </section>
-
-    <script>
-        // Add scroll animation for feature cards
-        const cards = document.querySelectorAll('.feature-card');
-        
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if(entry.isIntersecting) {
-                    entry.target.style.opacity = 1;
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        });
-
-        cards.forEach(card => {
-            card.style.opacity = 0;
-            card.style.transform = 'translateY(20px)';
-            observer.observe(card);
-        });
-    </script>
+    </div>
 </body>
 </html>
