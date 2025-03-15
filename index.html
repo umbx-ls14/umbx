@@ -180,6 +180,31 @@
             100% { opacity: 1; }
         }
 
+        .hall-of-shame {
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .shame-title {
+            font-size: 2rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px var(--secondary);
+        }
+
+        .shame-image {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .shame-image img {
+            max-width: 100%;
+            height: auto;
+            border: 2px solid var(--primary);
+            box-shadow: 0 0 15px var(--primary);
+        }
+
         /* Hidden Audio Player */
         audio {
             display: none;
@@ -208,10 +233,20 @@
         </div>
     </header>
 
+    <section class="hall-of-shame">
+        <div class="container">
+            <h2 class="shame-title">Hall of Shame</h2>
+            <div class="shame-image">
+                <img src="https://cdn.discordapp.com/attachments/1350402511239905371/1350431574876880957/image.png?ex=67d6b6e9&is=67d56569&hm=653e56bc6f96b04549248330766a9901c744b66a87f97663a3f35cd3c4b59517&" alt="Hall of Shame">
+            </div>
+        </div>
+    </section>
+
     <!-- Hidden Audio Player -->
     <audio autoplay loop>
         <source src="https://www.dropbox.com/scl/fi/q1qnixmd56fvayfxbnx65/Whitehard-Taking-Drugs_-Slowed-Hardstyle.mp3?rlkey=go1jsyullfyjyg8svxh3ugpkt&st=8rf77nvr&dl=1" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'920bb4f768faade1',t:'MTc0MjAzODUyMS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
 </body>
 </html>
