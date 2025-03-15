@@ -3,175 +3,204 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Umbrella Corporation Portal</title>
+    <title>UMBX Core</title>
     <style>
+        :root {
+            --bg-color: #0a0a0a;
+            --primary: #00ffaa;
+            --secondary: #ff00aa;
+            --accent: #aa00ff;
+            --text: #e0e0e0;
+            --dark: #111111;
+        }
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
         }
-
+        
         body {
-            min-height: 100vh;
-            background: linear-gradient(135deg, #1a1a1a, #2d1b33, #0f3460);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
+            background-color: var(--bg-color);
+            color: var(--text);
+            font-family: 'Courier New', monospace;
+            line-height: 1.6;
+            overflow-x: hidden;
         }
-
-        .container {
-            position: relative;
-            width: 400px;
-            height: 600px;
-            background: rgba(0, 0, 0, 0.8);
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-            overflow: hidden;
-        }
-
-        .container::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 225%;
-            background: linear-gradient(45deg, transparent, #ff003c, transparent);
-            transform-origin: bottom right;
-            animation: animate 8s linear infinite;
-        }
-
-        @keyframes animate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .content {
-            position: relative;
-            z-index: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 30px;
-        }
-
-        .profile-img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 3px solid #fff;
-            padding: 5px;
-            background: #ffffff;
-            animation: float 3s ease-in-out infinite;
-            transition: transform 0.3s ease;
-        }
-
-        .profile-img:hover {
-            transform: scale(1.05);
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .btn {
-            width: 100%;
-            padding: 15px 30px;
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            border-radius: 30px;
-            color: #fff;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(5px);
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
+        
+        .noise {
+            position: fixed;
             top: 0;
-            left: -100%;
+            left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(255, 255, 255, 0.4),
-                transparent
-            );
-            transition: 0.5s;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.05;
+            z-index: -1;
+            pointer-events: none;
         }
-
-        .btn:hover::before {
-            left: 100%;
+        
+        .grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(var(--primary) 1px, transparent 1px),
+                            linear-gradient(90deg, var(--primary) 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.03;
+            z-index: -1;
+            pointer-events: none;
         }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
-
-        .btn-primary {
-            background: linear-gradient(45deg, #00bcd4, #3a1c71);
+        
+        header {
+            padding: 30px 0;
+            position: relative;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.7), transparent);
         }
-
-        .btn-secondary {
-            background: linear-gradient(45deg, #ff003c, #78002a);
-        }
-
-        .btn-discord {
-            background: linear-gradient(45deg, #5865F2, #2b2d42);
-        }
-
-        .btn-bot {
-            background: linear-gradient(45deg, #7289DA, #4e5d94);
-        }
-
-        .title {
-            color: #fff;
-            font-size: 24px;
-            text-transform: uppercase;
+        
+        .logo {
+            font-size: 3rem;
+            font-weight: bold;
             letter-spacing: 2px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 10px;
+            position: relative;
+            text-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary);
+            animation: pulse 3s infinite alternate;
         }
-
-        @media (max-width: 480px) {
-            .container {
-                width: 90%;
-                padding: 30px;
-            }
+        
+        @keyframes pulse {
+            0% { text-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary); }
+            100% { text-shadow: 0 0 15px var(--primary), 0 0 30px var(--primary), 0 0 45px var(--primary); }
+        }
+        
+        .glitch {
+            position: relative;
+        }
+        
+        .glitch::before,
+        .glitch::after {
+            content: 'UMBX Core';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+        }
+        
+        .glitch::before {
+            color: var(--secondary);
+            animation: glitch 2s infinite;
+            clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+            transform: translate(-5px, -3px);
+        }
+        
+        .glitch::after {
+            color: var(--accent);
+            animation: glitch 2s 1s infinite;
+            clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%);
+            transform: translate(5px, 3px);
+        }
+        
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-3px, 3px); }
+            40% { transform: translate(-3px, -3px); }
+            60% { transform: translate(3px, 3px); }
+            80% { transform: translate(3px, -3px); }
+            100% { transform: translate(0); }
+        }
+        
+        .description {
+            text-align: center;
+            font-size: 1.2rem;
+            margin: 20px 0;
+            color: var(--primary);
+        }
+        
+        .links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .link-btn {
+            padding: 8px 20px;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .link-btn:hover {
+            background-color: var(--primary);
+            color: var(--dark);
+            box-shadow: 0 0 10px var(--primary);
+        }
+        
+        .terminal {
+            margin-top: 20px;
+            background-color: var(--dark);
+            border-radius: 5px;
+            padding: 15px;
+            border: 1px solid var(--primary);
+            text-align: center;
+        }
+        
+        .terminal::before {
+            content: 'UMBX@Core:~$';
+            color: var(--primary);
+            margin-right: 10px;
+        }
+        
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 20px;
+            background-color: var(--primary);
+            animation: blink 1s infinite;
+            vertical-align: middle;
+        }
+        
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="content">
-            <img src="https://imgs.search.brave.com/fUtq28q62yaox0_PGa7XC7H5Tc_M1jxts0usBniIB7g/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9sb2dv/cy5oYXZlaWJlZW5w/d25lZC5jb20vRG94/YmluLnBuZw" 
-                 alt="Profile Picture" 
-                 class="profile-img">
-            
-            <h1 class="title">Dox Corp</h1>
-
-            <a href="https://is.gd/rRcUuQ" 
-               class="btn btn-primary">Temporary-Generator</a>
-            
-
-            <a href="https://is.gd/PqQHYN" 
-               class="btn btn-secondary">Main-Generator</a>
-
-            <a href="https://discord.com/oauth2/authorize?client_id=1346180201364586517&permissions=8&integration_type=0&scope=bot" 
-               class="btn btn-bot">Get my Discord Bot</a>
-
-            <a href="https://discord.gg/AG3SFRXr" 
-               class="btn btn-discord">Our Discord!</a>
+    <div class="noise"></div>
+    <div class="grid"></div>
+    
+    <header>
+        <div class="container">
+            <h1 class="logo"><span class="glitch">UMBX Core</span></h1>
+            <div class="description">
+                👾 Developer | Cybersecurity | Data Science 🔧 Python, C#, HTML, CSS
+            </div>
+            <div class="links">
+                <a href="https://github.com/umbx-dot" class="link-btn" target="_blank">GitHub</a>
+                <a href="https://discord.gg/2Zb2UfJ6" class="link-btn" target="_blank">Discord Server</a>
+                <a href="https://t.me/umbx1" class="link-btn" target="_blank">Telegram</a>
+            </div>
+            <div class="terminal">
+                <span>Contact me: Discord skibiditoilet_us1#0000 | Telegram @umbx1</span>
+                <span class="cursor"></span>
+            </div>
         </div>
-    </div>
+    </header>
 </body>
 </html>
