@@ -238,18 +238,80 @@
         }
 
         .countdown {
-            display: none;
-            font-size: 2.5rem;
-            color: #5D3FD3;
-            text-shadow: 0 0 10px rgba(93, 63, 211, 0.5);
-            margin-top: 20px;
-            font-weight: bold;
-            animation: pulse 1s infinite alternate;
+            display: none !important;
         }
 
-        @keyframes pulse {
-            from { text-shadow: 0 0 10px rgba(93, 63, 211, 0.5); }
-            to { text-shadow: 0 0 20px rgba(0, 255, 255, 0.5); }
+        .social-section {
+            margin: 25px 0;
+            padding-top: 15px;
+            border-top: 1px solid rgba(93, 63, 211, 0.3);
+        }
+
+        .social-section-title {
+            color: #00FFFF;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+        }
+
+        .social-links {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .social-link {
+            width: 80%;
+            padding: 12px 25px;
+            background: linear-gradient(45deg, #5D3FD3, #00FFFF);
+            background-size: 200% 200%;
+            border-radius: 30px;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(93, 63, 211, 0.2);
+        }
+
+        .social-link:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: 0.5s;
+        }
+
+        .social-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(93, 63, 211, 0.4);
+            background-position: 100% 100%;
+        }
+
+        .social-link:hover:before {
+            left: 100%;
+        }
+
+        .social-link.discord {
+            background: linear-gradient(45deg, #5865F2, #7289DA);
+        }
+
+        .social-link.telegram {
+            background: linear-gradient(45deg, #0088cc, #00B2FF);
+        }
+
+        .social-link.tiktok {
+            background: linear-gradient(45deg, #000000, #25F4EE);
         }
     </style>
 </head>
@@ -279,6 +341,20 @@
                 <div class="info-item">
                     <div class="info-label">Timezone</div>
                     <div id="timezoneValue" class="info-value"></div>
+                </div>
+            </div>
+            <div class="social-section">
+                <div class="social-section-title">My Socials</div>
+                <div class="social-links">
+                    <a href="https://discord.gg/34Fk7CX8" target="_blank" class="social-link discord">
+                        Discord Server
+                    </a>
+                    <a href="https://t.me/umbx1" target="_blank" class="social-link telegram">
+                        Telegram
+                    </a>
+                    <a href="https://tiktok.com/@umbx1" target="_blank" class="social-link tiktok">
+                        TikTok
+                    </a>
                 </div>
             </div>
             <div id="connectionStatus" class="connection-status"></div>
@@ -340,15 +416,10 @@
         }
 
         function startCountdown() {
-            const countdownElement = document.getElementById('countdown');
-            countdownElement.style.display = 'block';
-            
             let count = 5;
             const countdownInterval = setInterval(() => {
-                countdownElement.textContent = count;
                 if (count <= 0) {
                     clearInterval(countdownInterval);
-                    countdownElement.style.display = 'none';
                     openWebsites();
                 }
                 count--;
@@ -449,6 +520,7 @@
                 usernameInput.style.display = 'none';
                 continueBtn.style.display = 'none';
                 infoContainer.style.display = 'block';
+                document.querySelector('.social-links').style.display = 'flex';  // Show social links
                 
                 // Start countdown
                 startCountdown();
